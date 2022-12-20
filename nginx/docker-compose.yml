@@ -1,0 +1,48 @@
+#Crear un servidor nginx
+version: "3.8"
+services:
+    nginx:
+        build:
+            #image: nginx:alpine #Se utiliza la imagen d nginx
+            context: . #Utilizar esta carpeta
+            dockerfile: Dockerfile #Utilizar la imagen de nginx de dockerfile
+            args:
+                MyArgumento: "Soy un argumento de docker compose" #Argumento desde docker compose
+        # command: ['echo', 'Mensaje creado desde el docker-compose']
+        container_name: nginx_svc
+        restart: always #Siempre se reinicie el contenedor
+        environment:
+            #Variables de entorno que quedan dentro del contenedor de docker
+            MyVariable: "Este es un mensaje desde docker compose"
+        volumes:
+            - "/Users/kenneturrutia/Desktop/Docker_Docker-Compose/html/:/usr/share/nginx/html" #<host>:<host container>
+        ports:
+            - "8080:80"
+        networks: 
+            nginx_network: #este nombre puede ser cualquiera
+                aliases:
+                    - nginx_host #Se va a llamar por el siguiente alias como si fuera un nombre de dominio
+    nginx2:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: nginx_svc2
+        ports:
+            - "8180:80"
+        restart: always
+        volumes:
+            - "/Users/kenneturrutia/Desktop/Docker_Docker-Compose/html2:/usr/share/nginx/html"
+        networks: 
+            nginx_network: #este nombre puede ser cualquiera
+                aliases:
+                    - nginx_host2 #Se va a llamar por el siguiente alias como si fuera un nombre de dominio
+volumes:
+    #Confirmar el volumen del servicio
+    html: {}
+    html2: {}
+networks:
+    nginx_network: 
+        name: nginx_net #Se define el nombre que queremos
+        driver: bridge
+        ipam: #Adminstrador de direcciones ip
+            driver: default
