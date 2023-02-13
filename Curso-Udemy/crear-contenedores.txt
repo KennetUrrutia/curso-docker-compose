@@ -33,11 +33,9 @@ mongo
 docker container run \
 --name nest-app \
 -w /app \
--p 8080:3000 \
+-dp 8080:3000 \
 -v "$(pwd)":/app \
 node:18.14.0-alpine3.17 \
 sh -c "yarn install && yarn start:dev"
-
-
 
 
