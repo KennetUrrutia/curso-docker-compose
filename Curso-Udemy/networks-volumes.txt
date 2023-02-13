@@ -1,0 +1,17 @@
+
+------------- Crear un Volumen --------------
+docker volume create world-db 
+
+
+--------- Conexiones a una network ----------
+// Crear la red
+docker network create world-app
+
+// Conectar el primer contenedor 
+docker network connect world-app f53f959f6e3c
+
+//Conectar el segunddo contenedor 
+docker network connect world-app 43921f67c590
+
+// Inspeccionar la red para comprobar las 2 conexiones
+docker network inspect world-app

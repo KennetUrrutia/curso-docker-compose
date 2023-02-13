@@ -1,0 +1,43 @@
+Comandos para creación de contenedores de Docker
+
+---------------- Mariadb ----------------
+docker container run \
+--name world-db \
+-e MARIADB_USER=example-user \
+-e MARIADB_PASSWORD=user-password \
+-e MARIADB_ROOT_PASSWORD=root-secret-password \
+-e MARIADB_DATABASE=world-db \
+-dp 3306:3306 \
+--volume world-db:/var/lib/mysql \
+--network world-app \
+mariadb:jammy
+
+-------------- phpMyAdmin --------------
+docker container run \
+--name phpmyadmin \
+-d \
+-e PMA_ARBITRARY=1 \
+-p 8080:80 \
+--network world-app \
+phpmyadmin:5.2.0-apache
+
+-------------- mongodb ------------------
+docker container run \
+--name semiagrodb \
+-e MONGO_INITDB_ROOT_USERNAME=kennetAdmin \
+-e MONGO_INITDB_ROOT_PASSWORD=passsemi12$ \
+-dp 27017:27017 \
+mongo
+
+-------------- nodejs ---------------------
+docker container run \
+--name nest-app \
+-w /app \
+-p 8080:3000 \
+-v "$(pwd)":/app \
+node:18.14.0-alpine3.17 \
+sh -c "yarn install && yarn start:dev"
+
+
+
+
