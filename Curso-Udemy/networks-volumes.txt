@@ -1,17 +1,34 @@
 
 ------------- Crear un Volumen --------------
-docker volume create world-db 
+docker volume create <volume_name>
+example:
+  - docker volume create world-db 
 
 
 --------- Conexiones a una network ----------
 // Crear la red
-docker network create world-app
+docker network create <network_name>
+exaplne:
+  - docker network create world-app
 
 // Conectar el primer contenedor 
-docker network connect world-app f53f959f6e3c
+docker network connect <networke_name> <id_first_container>
+example:
+  - docker network connect world-app f53f959f6e3c
 
 //Conectar el segunddo contenedor 
-docker network connect world-app 43921f67c590
+docker network connect <networke_name> <id_second_container>
+example:
+  - docker network connect world-app 43921f67c590
 
 // Inspeccionar la red para comprobar las 2 conexiones
-docker network inspect world-app
+docker network inspect <networke_name>
+example: 
+  - docker network inspect world-app
+
+
+------ Abrir la terminal interactiva ------
+// Abrir la termial
+docker exec -it <container_id> /bin/sh
+example: 
+  - docker exec -it d7e90388f9a0 <container_id> /bin/sh

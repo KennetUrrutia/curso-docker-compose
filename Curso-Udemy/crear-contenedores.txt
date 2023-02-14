@@ -38,4 +38,20 @@ docker container run \
 node:18.14.0-alpine3.17 \
 sh -c "yarn install && yarn start:dev"
 
+-------------- pgAdming ------------------
+docker container run \
+--name pgAdmin \
+-e PGADMIN_DEFAULT_PASSWORD=123456 \
+-e PGADMIN_DEFAULT_EMAIL=superman@google.com \
+-dp 8080:80 \
+dpage/pgadmin4:6.17
+
+
+------------- postgress ------------------
+docker container run \ 
+-d \
+--name postgres-db \
+-e POSTGRES_PASSWORD=123456 \
+-v postgres-db:/var/lib/postgresql/data \
+postgres:15.1
 
